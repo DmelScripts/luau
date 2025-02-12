@@ -372,7 +372,7 @@ end
 
 function FV.k2s(v, ...)
 
-	if keyToString then
+	
 
 		if typeof(v) == "userdata" and getrawmetatable(v) then
 
@@ -398,7 +398,7 @@ function FV.k2s(v, ...)
 
 		end
 
-	end
+
 
 	return FV.v2s(v, ...)
 
