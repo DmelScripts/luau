@@ -68,7 +68,7 @@ function FV.v2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 
 	elseif type(v) == "vector" then
 
-		return string.format("Vector3.new(%s, %s, %s)", v2s(v.X), v2s(v.Y), v2s(v.Z))
+		return string.format("Vector3.new(%s, %s, %s)", FV.v2s(v.X), FV.v2s(v.Y), FV.v2s(v.Z))
 
 	else
 
