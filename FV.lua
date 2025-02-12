@@ -1053,5 +1053,65 @@ function FV.safetostring(v: any)
 	return tostring(v)
 
 end
+--- schedules the provided function (and calls it with any args after)
 
+function schedule(f, ...)
+
+	table.insert(scheduled, { f, ... })
+
+end
+
+
+
+--- yields the current thread until the scheduler gives the ok
+
+function scheduleWait()
+
+	local thread = coroutine.running()
+
+	schedule(function()
+
+		coroutine.resume(thread)
+
+	end)
+
+	coroutine.yield()
+
+end
+
+
+
+--- the big (well tbh small now) boi task scheduler himself, handles p much anything as quicc as possible
+
+function taskscheduler()
+
+	if not toggle then
+
+		scheduled = {}
+
+		return
+
+	end
+
+	if #scheduled > 1000 then
+
+		table.remove(scheduled, #scheduled)
+
+	end
+
+	if #scheduled > 0 then
+
+		local currentf = scheduled[1]
+
+		table.remove(scheduled, 1)
+
+		if type(currentf) == "table" and type(currentf[1]) == "function" then
+
+			pcall(unpack(currentf))
+
+		end
+
+	end
+
+end
 return FV
