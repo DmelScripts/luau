@@ -526,3 +526,4 @@ function FV.safetostring(v: any)
 	end
 	return tostring(v)
 end
+return FV
