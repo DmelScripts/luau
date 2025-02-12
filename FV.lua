@@ -38,7 +38,7 @@ function FV.v2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 
 	elseif typeof(v) == "string" then
 
-		return formatstr(v, l)
+		return FV.formatstr(v, l)
 
 	elseif typeof(v) == "function" then
 
@@ -94,7 +94,7 @@ function FV.v2v(t)
 
 		if type(i) == "string" and i:match("^[%a_]+[%w_]*$") then
 
-			ret = ret .. "local " .. i .. " = " .. v2s(v, nil, nil, i, true) .. "\n"
+			ret = ret .. "local " .. i .. " = " .. FV.v2s(v, nil, nil, i, true) .. "\n"
 
 		elseif tostring(i):match("^[%a_]+[%w_]*$") then
 
@@ -110,7 +110,7 @@ function FV.v2v(t)
 
 				.. " = "
 
-				.. v2s(v, nil, nil, tostring(i):lower() .. "_" .. tostring(count), true)
+				.. FV.v2s(v, nil, nil, tostring(i):lower() .. "_" .. tostring(count), true)
 
 				.. "\n"
 
@@ -128,7 +128,7 @@ function FV.v2v(t)
 
 				.. " = "
 
-				.. v2s(v, nil, nil, type(v) .. "_" .. tostring(count), true)
+				.. FV.v2s(v, nil, nil, type(v) .. "_" .. tostring(count), true)
 
 				.. "\n"
 
