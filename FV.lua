@@ -42,15 +42,15 @@ function FV.v2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 
 	elseif typeof(v) == "function" then
 
-		return f2s(v)
+		return FV.f2s(v)
 
 	elseif typeof(v) == "table" then
 
-		return t2s(v, l, p, n, vtv, i, pt, path, tables, tI)
+		return FV.t2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 
 	elseif typeof(v) == "Instance" then
 
-		return i2p(v)
+		return FV.i2p(v)
 
 	elseif typeof(v) == "userdata" then
 
@@ -58,7 +58,7 @@ function FV.v2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 
 	elseif type(v) == "userdata" then
 
-		return u2s(v)
+		return FV.u2s(v)
 
 	elseif type(v) == "vector" then
 
