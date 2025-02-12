@@ -942,7 +942,7 @@ function FV.formatstr(s, indentation)
 
 	end
 
-	local handled, reachedMax = handlespecials(s, indentation)
+	local handled, reachedMax = FV.handlespecials(s, indentation)
 
 	return '"'
 
