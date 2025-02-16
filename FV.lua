@@ -614,7 +614,7 @@ function FV.u2s(u)
 
 		-- Ray
 
-		return "Ray.new(" .. u2s(u.Origin) .. ", " .. u2s(u.Direction) .. ")"
+		return "Ray.new(" .. FV.u2s(u.Origin) .. ", " .. FV.u2s(u.Direction) .. ")"
 
 	elseif typeof(u) == "NumberSequence" then
 
@@ -686,7 +686,7 @@ function FV.u2s(u)
 
 		local vector2 = center + size / 2
 
-		return "Region3.new(" .. u2s(vector1) .. ", " .. u2s(vector2) .. ")"
+		return "Region3.new(" .. FV.u2s(vector1) .. ", " .. FV.u2s(vector2) .. ")"
 
 	elseif typeof(u) == "Faces" then
 
@@ -760,17 +760,17 @@ function FV.u2s(u)
 
 			"CFrame.new(%s, %s, %s) * CFrame.Angles(%s, %s, %s)",
 
-			v2s(u.X),
+			FV.v2s(u.X),
 
-			v2s(u.Y),
+			FV.v2s(u.Y),
 
-			v2s(u.Z),
+			FV.v2s(u.Z),
 
-			v2s(xAngle),
+			FV.v2s(xAngle),
 
-			v2s(yAngle),
+			FV.v2s(yAngle),
 
-			v2s(zAngle)
+			FV.v2s(zAngle)
 
 		)
 
@@ -782,17 +782,17 @@ function FV.u2s(u)
 
 			"Enum.InitialDockState.Right",
 
-			v2s(u.InitialEnabled),
+			FV.v2s(u.InitialEnabled),
 
-			v2s(u.InitialEnabledShouldOverrideRestore),
+			FV.v2s(u.InitialEnabledShouldOverrideRestore),
 
-			v2s(u.FloatingXSize),
+			FV.v2s(u.FloatingXSize),
 
-			v2s(u.FloatingYSize),
+			FV.v2s(u.FloatingYSize),
 
-			v2s(u.MinWidth),
+			FV.v2s(u.MinWidth),
 
-			v2s(u.MinHeight)
+			FV.v2s(u.MinHeight)
 
 		)
 
@@ -810,13 +810,13 @@ function FV.u2s(u)
 
 			"UDim2.new(%s, %s, %s, %s)",
 
-			v2s(u.X.Scale),
+			FV.v2s(u.X.Scale),
 
-			v2s(u.X.Offset),
+			FVv2s(u.X.Offset),
 
-			v2s(u.Y.Scale),
+			FV.v2s(u.Y.Scale),
 
-			v2s(u.Y.Offset)
+			FV.v2s(u.Y.Offset)
 
 		)
 
