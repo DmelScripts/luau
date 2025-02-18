@@ -420,7 +420,7 @@ function FV.f2s(f)
 
 		elseif type(x) == "table" then
 
-			isgucci, gpath = v2p(f, x)
+			isgucci, gpath = FV.v2p(f, x)
 
 		end
 
@@ -432,7 +432,7 @@ function FV.f2s(f)
 
 			else
 
-				return "getgenv()[" .. v2s(k) .. "]" .. gpath
+				return "getgenv()[" .. FV.v2s(k) .. "]" .. gpath
 
 			end
 
@@ -480,7 +480,7 @@ function FV.i2p(i)
 
 				else
 
-					return i2p(player) .. ".Character" .. out
+					return FV.i2p(player) .. ".Character" .. out
 
 				end
 
@@ -488,7 +488,7 @@ function FV.i2p(i)
 
 				if parent.Name:match("[%a_]+[%w+]*") ~= parent.Name then
 
-					out = ":FindFirstChild(" .. formatstr(parent.Name) .. ")" .. out
+					out = ":FindFirstChild(" .. FV.formatstr(parent.Name) .. ")" .. out
 
 				else
 
@@ -530,7 +530,7 @@ function FV.i2p(i)
 
 					else
 
-						return "game:FindFirstChild(" .. formatstr(parent.Name) .. ")" .. out
+						return "game:FindFirstChild(" .. FV.formatstr(parent.Name) .. ")" .. out
 
 					end
 
