@@ -1109,7 +1109,7 @@ end
 function scheduleWait()
 
 	local thread = coroutine.running()
-
+if thread and coroutine.status(thread) ~= "dead" then
 	schedule(function()
 
 		coroutine.resume(thread)
@@ -1117,7 +1117,7 @@ function scheduleWait()
 	end)
 
 	coroutine.yield()
-
+	end
 end
 
 
