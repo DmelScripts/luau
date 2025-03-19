@@ -1116,7 +1116,7 @@ function scheduleWait()
 
 	end)
 
-	pcall(coroutine.yield())
+	coroutine.yield()
 
 end
 
