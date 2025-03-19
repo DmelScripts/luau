@@ -8,6 +8,53 @@ local scheduled = {}
 --- RBXScriptConnect of the task scheduler
 
 local schedulerconnect
+function FV:ArgsToString(method, args)
+
+	assert(typeof(method) == "string", "string expected, got " .. typeof(method))
+
+	assert(typeof(args) == "table", "table expected, got " .. typeof(args))
+
+	return FV.v2v({ args = args }) .. "\n\n" .. method .. "(unpack(args))"
+
+end
+
+
+
+--- Converts a value to variables with the specified index as the variable name (if nil/invalid then the name will be assigned automatically)
+
+--- @param t any[]
+
+--- @return string
+
+function FV:TableToVars(t)
+
+	assert(typeof(t) == "table", "table expected, got " .. typeof(t))
+
+	return FV.v2v(t)
+
+end
+
+
+
+--- Converts a value to a variable with the specified `variablename` (if nil/invalid then the name will be assigned automatically)
+
+--- @param value any
+
+--- @return string
+
+function FV:ValueToVar(value, variablename)
+
+	assert(variablename == nil or typeof(variablename) == "string", "string expected, got " .. typeof(variablename))
+
+	if not variablename then
+
+		variablename = 1
+
+	end
+
+	return FV.v2v({ [variablename] = value })
+
+end
 function FV.v2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 
 
