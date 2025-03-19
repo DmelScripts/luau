@@ -264,19 +264,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 
 		size = size + 1 -- changes size for max limit
 
-		if size > (_G.SimpleSpyMaxTableSize or 1000) then
-
-			s = s
-
-				.. "\n"
-
-				.. string.rep(" ", l)
-
-				.. "-- MAXIMUM TABLE SIZE REACHED, CHANGE '_G.SimpleSpyMaxTableSize' TO ADJUST MAXIMUM SIZE "
-
-			break
-
-		end
+		
 
 		if rawequal(k, t) then -- checks if the table being iterated over is being used as an index within itself (yay, lua)
 
