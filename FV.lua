@@ -1107,9 +1107,8 @@ end
 --- yields the current thread until the scheduler gives the ok
 
 function scheduleWait()
-
+pcall(function()
 	local thread = coroutine.running()
-if thread and coroutine.status(thread) ~= "dead" then
 	schedule(function()
 
 		coroutine.resume(thread)
@@ -1117,7 +1116,7 @@ if thread and coroutine.status(thread) ~= "dead" then
 	end)
 
 	coroutine.yield()
-	end
+		end)
 end
 
 
