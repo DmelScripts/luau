@@ -553,7 +553,7 @@ end
 
 --- Gets the player an instance is descended from
 function VF.getplayer(instance)
-	for _, v in pairs(Players:VF.getplayers()) do
+	for _, v in pairs(Players:GetPlayers()) do
 		if v.Character and (instance:IsDescendantOf(v.Character) or instance == v.Character) then
 			return v
 		end
