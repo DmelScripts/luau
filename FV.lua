@@ -354,9 +354,9 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 			currentPath = "." .. k
 
 		else
-
+                      if type(k) == "number" and k ~= k then
 			currentPath = "[" .. FV.k2s(k, l, p, n, vtv, k, t, path .. currentPath, tables, tI) .. "]"
-
+			end
 		end
 
 		if size % 100 == 0 then
