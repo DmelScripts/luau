@@ -367,7 +367,6 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 		-- actually serializes the member of the table
 
 		s = s
-if type(k) == "number" and not rawequal(k,k) then
 			.. "\n"
 
 			.. string.rep(" ", l)
@@ -379,13 +378,6 @@ if type(k) == "number" and not rawequal(k,k) then
 			.. "] = "
 
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
-
-			.. ","
-		else
-			.. "\n"
-
-			.. string.rep(" ", l)
-		.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. ","
 	end
