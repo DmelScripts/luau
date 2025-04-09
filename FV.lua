@@ -365,7 +365,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 		end
 
 		-- actually serializes the member of the table
-if type(k) ~= "number" then
+--if type(k) ~= "number" then
 		s = s
 			.. "\n"
 
@@ -380,16 +380,7 @@ if type(k) ~= "number" then
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. ","
-		else
-s = s
-			.. "\n"
-
-			.. string.rep(" ", l)
-
-			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
-
-			.. ","
-		end
+		
 	end
 
 	if #s > 1 then -- removes the last comma because it looks nicer (no way to tell if it's done 'till it's done so...)
