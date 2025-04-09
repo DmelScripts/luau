@@ -353,10 +353,9 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 
 			currentPath = "." .. k
 
-		else
-                      if type(k) == "number" and k ~= k then
+		elseif type(k) == "number" and not rawequal(k,k) then
 			currentPath = "[" .. FV.k2s(k, l, p, n, vtv, k, t, path .. currentPath, tables, tI) .. "]"
-			end
+		
 		end
 
 		if size % 100 == 0 then
@@ -368,7 +367,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 		-- actually serializes the member of the table
 
 		s = s
-
+if type(k) == "number" and not rawequal(k,k) then
 			.. "\n"
 
 			.. string.rep(" ", l)
@@ -382,7 +381,13 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. ","
+		else
+			.. "\n"
 
+			.. string.rep(" ", l)
+		.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
+
+			.. ","
 	end
 
 	if #s > 1 then -- removes the last comma because it looks nicer (no way to tell if it's done 'till it's done so...)
