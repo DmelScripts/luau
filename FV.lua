@@ -353,7 +353,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 
 			currentPath = "." .. k
 
-		elseif (type(k) == "number" and k ~= k) then
+		else
 			currentPath = "[" .. FV.k2s(k, l, p, n, vtv, k, t, path .. currentPath, tables, tI) .. "]"
 		
 		end
@@ -365,7 +365,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 		end
 
 		-- actually serializes the member of the table
-if (type(k) == "number" and k ~= k) then
+if type(k) ~= "number" then
 		s = s
 			.. "\n"
 
@@ -380,7 +380,7 @@ if (type(k) == "number" and k ~= k) then
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. ","
-		elseif type(k) == "number" and k == k then
+		else
 s = s
 			.. "\n"
 
