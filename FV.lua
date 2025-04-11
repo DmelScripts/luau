@@ -386,11 +386,11 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 
 	end
 
-	if size > 0 then -- cleanly indents the last curly bracket
+	--if size > 0 then -- cleanly indents the last curly bracket
 
 		s = s .. "\n" .. string.rep(" ", l - indent)
 
-	end
+	
 
 	return s .. "}"
 
