@@ -112,7 +112,9 @@ function FV.v2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 	elseif type(v) == "userdata" then
 
 		return FV.u2s(v)
-
+        elseif typeof(v) == "Color3" then
+		
+		return "Color3.new(" .. tostring(v) .. ")"
 	elseif type(v) == "vector" then
 
 		return string.format("Vector3.new(%s, %s, %s)", FV.v2s(v.X), FV.v2s(v.Y), FV.v2s(v.Z))
@@ -303,13 +305,13 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 
 	local s = "{" -- start of serialization
 
-	local size = 0
+	--local size = 0
 
 	l = l + indent -- set indentation level
 
 	for k, v in pairs(t) do -- iterates over table
 
-		size = size + 1 -- changes size for max limit
+		--size = size + 1 -- changes size for max limit
 
 		
 
@@ -358,12 +360,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 		
 		end
 
-		if size % 100 == 0 then
-
-			scheduleWait()
-
-		end
-
+		
 		-- actually serializes the member of the table
 --if type(k) ~= "number" then
 		s = s
