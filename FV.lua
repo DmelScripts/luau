@@ -55,7 +55,7 @@ function FV:ValueToVar(value, variablename)
 	return FV.v2v({ [variablename] = value })
 
 end
-function FV.v2s(v, l, p, n, vtv, i, pt, path, tables, tI)
+function FV.v2s(v,nf, l, p, n, vtv, i, pt, path, tables, tI)
 
 
 
@@ -99,7 +99,7 @@ function FV.v2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 
 	elseif typeof(v) == "table" then
 
-		return FV.t2s(v, l, p, n, vtv, i, pt, path, tables, tI)
+		return FV.t2s(v, l, p, n, vtv, i, pt, path, tables, tI,nf)
 
 	elseif typeof(v) == "Instance" then
 
@@ -241,7 +241,7 @@ end
 
 --- @param tI table
 
-function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
+function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI,nf)
 
 	local globalIndex = table.find(getgenv(), t) -- checks if table is a global
 
@@ -362,7 +362,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 
 		
 		-- actually serializes the member of the table
---if type(k) ~= "number" then
+if not nf and type(k) ~= "number" then
 		s = s
 			.. "\n"
 
@@ -377,7 +377,16 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. ","
-		
+		else
+			s = s
+			.. "\n"
+
+			.. string.rep(" ", l)
+
+			
+			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
+
+			.. ","
 	end
 
 	if #s > 1 then -- removes the last comma because it looks nicer (no way to tell if it's done 'till it's done so...)
