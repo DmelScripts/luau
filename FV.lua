@@ -1,6 +1,6 @@
 local FV = {}
 local indent = 4
-
+local numbertableFilter = false
 --- used for task scheduler
 
 local scheduled = {}
@@ -42,7 +42,7 @@ end
 
 --- @return string
 
-function FV:ValueToVar(value, variablename)
+function FV:ValueToVar(value, variablename,tableNumberRemove)
 
 	assert(variablename == nil or typeof(variablename) == "string", "string expected, got " .. typeof(variablename))
 
@@ -52,10 +52,10 @@ function FV:ValueToVar(value, variablename)
 
 	end
 
-	return FV.v2v({ [variablename] = value })
+	return FV.v2v({ [variablename] = value})
 
 end
-function FV.v2s(v,nf, l, p, n, vtv, i, pt, path, tables, tI)
+function FV.v2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 
 
 
@@ -99,7 +99,7 @@ function FV.v2s(v,nf, l, p, n, vtv, i, pt, path, tables, tI)
 
 	elseif typeof(v) == "table" then
 
-		return FV.t2s(v, l, p, n, vtv, i, pt, path, tables, tI,nf)
+		return FV.t2s(v, l, p, n, vtv, i, pt, path, tables, tI)
 
 	elseif typeof(v) == "Instance" then
 
@@ -108,13 +108,15 @@ function FV.v2s(v,nf, l, p, n, vtv, i, pt, path, tables, tI)
 	elseif typeof(v) == "userdata" then
 
 		return "newproxy(true)"
+elseif typeof(v) == "Color3" then
 
+
+
+		return "Color3.new(" .. tostring(v) .. ")"
 	elseif type(v) == "userdata" then
 
 		return FV.u2s(v)
-        elseif typeof(v) == "Color3" then
-		
-		return "Color3.new(" .. tostring(v) .. ")"
+
 	elseif type(v) == "vector" then
 
 		return string.format("Vector3.new(%s, %s, %s)", FV.v2s(v.X), FV.v2s(v.Y), FV.v2s(v.Z))
@@ -241,8 +243,8 @@ end
 
 --- @param tI table
 
-function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI,nf)
-
+function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
+print(numbertableFilter)
 	local globalIndex = table.find(getgenv(), t) -- checks if table is a global
 
 	if type(globalIndex) == "string" then
@@ -305,13 +307,12 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI,nf)
 
 	local s = "{" -- start of serialization
 
-	--local size = 0
 
 	l = l + indent -- set indentation level
 
 	for k, v in pairs(t) do -- iterates over table
 
-		--size = size + 1 -- changes size for max limit
+	--	size = size + 1 -- changes size for max limit
 
 		
 
@@ -343,7 +344,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI,nf)
 
 				)
 
-			size -= 1
+			
 
 			continue
 
@@ -356,13 +357,12 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI,nf)
 			currentPath = "." .. k
 
 		else
-			currentPath = "[" .. FV.k2s(k, l, p, n, vtv, k, t, path .. currentPath, tables, tI) .. "]"
+			currentPath = "[" .. FV.k2s(k,numbertableFilter, l, p, n, vtv, k, t, path .. currentPath, tables, tI) .. "]"
 		
 		end
 
-		
 		-- actually serializes the member of the table
-if not nf and type(k) ~= "number" then
+		if not numbertableFilter then
 		s = s
 			.. "\n"
 
@@ -370,7 +370,7 @@ if not nf and type(k) ~= "number" then
 
 			.. "["
 
-			.. FV.k2s(k, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
+			.. FV.k2s(k,numbertableFilter, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. "] = "
 
@@ -378,6 +378,7 @@ if not nf and type(k) ~= "number" then
 
 			.. ","
 		else
+		    if typeof(k) == "number" then
 			s = s
 			.. "\n"
 
@@ -387,6 +388,25 @@ if not nf and type(k) ~= "number" then
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. ","
+			else 
+			    s = s
+
+			.. "\n"
+
+
+			.. string.rep(" ", l)
+
+			.. "["
+
+			.. FV.k2s(k,numbertableFilter, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
+
+			.. "] = "
+
+			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
+
+			.. ","
+			end
+			end
 	end
 
 	if #s > 1 then -- removes the last comma because it looks nicer (no way to tell if it's done 'till it's done so...)
@@ -409,8 +429,8 @@ end
 
 --- key-to-string
 
-function FV.k2s(v, ...)
-
+function FV.k2s(v,lnumbertableFilter, ...)
+numbertableFilter = lnumbertableFilter
 	
 
 		if typeof(v) == "userdata" and getrawmetatable(v) then
@@ -680,7 +700,8 @@ function FV.u2s(u)
 		-- DockWidgetPluginGuiInfo
 
 		return "DockWidgetPluginGuiInfo.new(Enum.InitialDockState" .. tostring(u) .. ")"
-
+elseif typeof(u) == "Color3" then
+    return "Color3.new(" .. tostring(u) .. ")"
 	elseif typeof(u) == "ColorSequence" then
 
 		-- ColorSequence
