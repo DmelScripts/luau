@@ -244,7 +244,7 @@ end
 --- @param tI table
 
 function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
-print(numbertableFilter)
+--print(numbertableFilter)
 	local globalIndex = table.find(getgenv(), t) -- checks if table is a global
 
 	if type(globalIndex) == "string" then
