@@ -395,6 +395,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. ","
+			end
 		else
 		    if typeof(k) == "number" then
 			s = s
