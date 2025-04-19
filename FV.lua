@@ -365,15 +365,17 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 		if not numbertableFilter then
 			if typeof(k) ~= "number" then
 		s = s
+
 			.. "\n"
+
 
 			.. string.rep(" ", l)
 
-			
+			.. "["
 
 			.. FV.k2s(k,numbertableFilter, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
-			.. " = "
+			.. "] = "
 
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
@@ -399,11 +401,18 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 		else
 		    if typeof(k) == "number" then
 			s = s
+
 			.. "\n"
+
 
 			.. string.rep(" ", l)
 
-			
+			.. "["
+
+			.. FV.k2s(k,numbertableFilter, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
+
+			.. "] = "
+
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. ","
