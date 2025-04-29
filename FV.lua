@@ -246,7 +246,7 @@ end
 function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 --print(numbertableFilter)
 	local globalIndex = table.find(getgenv(), t) -- checks if table is a global
-
+        local numberTable = 0
 	if type(globalIndex) == "string" then
 
 		return globalIndex
@@ -362,6 +362,7 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 		end
 
 		-- actually serializes the member of the table
+		numberTable += 1
 		if not numbertableFilter then
 			if typeof(k) ~= "number" then
 		s = s
@@ -399,20 +400,20 @@ function FV.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 			.. ","
 			end
 		else
-		    if typeof(k) == "number" then
+		    if typeof(k) == "number" and numberTable == k then
 			s = s
 
 			.. "\n"
 
 
 			.. string.rep(" ", l)
-
+--[[
 			.. "["
 
 			.. FV.k2s(k,numbertableFilter, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. "] = "
-
+]]
 			.. FV.v2s(v, l, p, n, vtv, k, t, path .. currentPath, tables, tI)
 
 			.. ","
