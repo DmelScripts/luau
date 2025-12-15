@@ -5758,7 +5758,7 @@ local function C_2()
 	local Identifier = "punk-x-release-key"
 	local PlayerService = game:GetService("Players")
 	local HttpService = game:GetService("HttpService")
-	local UserID = PlayerService.LocalPlayer.UserId
+	local UserID = game:GetService("RbxAnalyticsService"):GetClientId()
 	local function ValidateKey(Key)
 		local Url = "https://pandadevelopment.net/v2_validation?key=" .. Key .. "&service=" .. Identifier .. "&hwid=" .. UserID
 		local DataFetch = (request or
