@@ -311,15 +311,6 @@ function module.t2s(t, l, p, n, vtv, i, pt, path, tables, tI)
 			currentPath = "["..module.k2s(k, removeNumbericTable, l, p, n, vtv, k, t, path..currentPath, tables, tI).."]"
 
 		end
-		local countTotal = 0
-		for i,v in pairs(v) do
-			countTotal = countTotal + 1
-		end
-		-- actually serializes the member of the table
-		print(countTotal)
-		if countTotal == 0 then
-			return "{},"
-		end
 		numberTable += 1
 		if not removeNumbericTable then
 			if typeof(k) ~= "number" then
