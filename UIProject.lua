@@ -2,14 +2,15 @@
 --[[
 	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
 ]]
-local plr = game:GetService("Players").LocalPlayer
 
+local plr = game:GetService("Players").LocalPlayer
+if not plr then repeat plr = game:GetService("Players").LocalPlayer task.wait() until plr end
 getgenv().Anti = true -- Re-Execute if you change it
 
 local Anti
 Anti = hookmetamethod(game, "__namecall", function(self, ...)
         if self == plr and getnamecallmethod():lower() == "kick" and getgenv().Anti then
-            return warn("[ANTI-KICK] Client Tried To Call Kick Function On LocalPlayer")
+            return nil
         end
         return Anti(self, ...)
     end)
