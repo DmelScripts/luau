@@ -13,7 +13,7 @@ mt.__namecall = newcclosure(function(self, ...)
 
     -- Intercept the "Kick" method if it's called on the LocalPlayer
     if tostring(method) == "Kick" and self == game.Players.LocalPlayer and checkcaller() then
-        return nil -- This stops the function from actually running
+        --return nil -- This stops the function from actually running
     end
 
     return oldNamecall(self, ...)
