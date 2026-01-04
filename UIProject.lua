@@ -5,11 +5,9 @@
 
 local plr = game:GetService("Players").LocalPlayer
 if not plr then repeat plr = game:GetService("Players").LocalPlayer task.wait() until plr end
-getgenv().Anti = true -- Re-Execute if you change it
-
 local Anti
 Anti = hookmetamethod(game, "__namecall", function(self, ...)
-        if self == plr and getnamecallmethod():lower() == "kick" and getgenv().Anti then
+        if self == plr and getnamecallmethod():lower() == "kick" and checkcaller() then
             return nil
         end
         return Anti(self, ...)
